@@ -1,9 +1,7 @@
 import tweepy
 from tweepy import OAuthHandler
 import credentials
-import pandas as pd
 import csv
-import json
 
 # authentication 
 auth = OAuthHandler(credentials.API_KEY, credentials.API_SECRET_KEY)
@@ -38,24 +36,16 @@ for screen_name in screen_names:
         print(screen_name, len(tweets))
         tweet_dictionary[screen_name] = tweets
 
-joeBidenTweets = tweet_dictionary["JoeBiden"]
-print(joeBidenTweets[0])
-# df = pd.DataFrame(joeBidenTweets[0], columns = ['id', 'created_at', 'full_text'])
-# print(df)
-# df = pd.DataFrame(joeBidenTweets, )
 
-with open('tweets.csv', 'w', newline='') as f:
+# write csv file with the retrieved data
+with open('unlabeled_tweets.csv', 'w', newline='') as f:
     tweet_writer = csv.writer(f)
     tweet_writer.writerow(['Tweeter', 'Tweet ID', 'Tweet Time', 'Tweet Text', 'Topics'])
     for key in tweet_dictionary:
         for tweet in tweet_dictionary[key]:
             tweet_writer.writerow([key, tweet.id, tweet.created_at, tweet.full_text, ''])
 
-# for info in tweet_dictionary["JoeBiden"]:
-#     print("ID: {}".format(info.id))
-#     print(info.created_at)
-#     print(info.full_text)
-#     print("\n")
+
 
 
 
